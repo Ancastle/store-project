@@ -2,12 +2,20 @@ import React from "react";
 import Product from "./Product"
 
 function Products(props) {
-    let products = props.products;
+    const {products, userPoints, sortBy} = props;
+    let sortedProducts = [...products];
+    if (sortBy===1){
+      sortedProducts.sort((a, b) => (a.cost > b.cost) ? 1 : -1)
+    }
+    if (sortBy===2){
+      sortedProducts.sort((a, b) => (a.cost < b.cost) ? 1 : -1)
+    }
+    
   return (
     <div className="container">
         <div className="row">
-        {products.map((each, i) => {
-          return <Product key={i} category={each.category} name={each.name} imgURL={each.img.url} cost={each.cost} />
+        {sortedProducts.map((each, i) => {
+          return <Product key={i} category={each.category} name={each.name} imgURL={each.img.url} cost={each.cost} userPoints={userPoints} />
         })}
         </div>
     </div>

@@ -8,6 +8,7 @@ function App() {
   const [apiResponse, setApiResponse] = useState([]);
   const [userResponse, setUserResponse] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortBy, setSortBy] = useState(0);
   
   useEffect(() => {
       fetch(
@@ -28,7 +29,7 @@ function App() {
         })
         .catch(error => console.log(error));
     }, []);
-    
+
     useEffect(() => { 
       fetch(
       "https://coding-challenge-api.aerolab.co/user/me",
@@ -52,8 +53,8 @@ function App() {
   return (
     <div className="App">
       <Header name={userResponse.name} points={userResponse.points}/>
-      <Filters/>
-      <Products products={apiResponse}/>
+      <Filters sortBy={sortBy} setSortBy={setSortBy} />
+      <Products products={apiResponse} userPoints={userResponse.points} sortBy={sortBy}/>
       <Footer/>
     </div>
   );
