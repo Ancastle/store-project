@@ -2,13 +2,13 @@ import React from "react";
 import Product from "./Product"
 
 function Products(props) {
-    let news = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    let products = props.products;
   return (
     <div className="container">
-        <div class="row">
-        {news.map((each) => (
-            <Product/>
-        ))}
+        <div className="row">
+        {products.map((each, i) => {
+          return <Product key={i} category={each.category} name={each.name} imgURL={each.img.url} cost={each.cost} />
+        })}
         </div>
     </div>
   );
