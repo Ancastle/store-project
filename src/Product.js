@@ -1,4 +1,5 @@
 import React from "react";
+import Modal from "./Modal"
 
 function Product(props) {
   const {category, name, imgURL, cost, userPoints, productId, setIsUserUpdated} = props;
@@ -20,11 +21,10 @@ function Product(props) {
         console.log('Headers:', JSON.stringify(response.headers));
         console.log('Response:', body);
       });
-      alert('Compra realizada satisfactoriamente')
       setIsUserUpdated(false);
       
     } else {
-      alert("No tienes suficientes puntos")
+
     }
   } 
   return (
@@ -35,9 +35,46 @@ function Product(props) {
                 <h5 className="card-title">{name}</h5>
                 <p className="card-text">{cost} <i className="fas fa-coins"></i></p>
                 <p className="card-text"><small className="text-muted">{category}</small></p>
-                {userPoints > cost ? <button onClick={() => attemptToBuy(true, productId)}className="btn btn-primary">Buy</button> : <button onClick={() => attemptToBuy(false)} className="btn btn-danger">You lack {cost-userPoints} points</button>}
-                
+                {userPoints >= cost ? <button onClick={() => attemptToBuy(true, productId)} className="btn btn-primary" data-toggle="modal" data-target="#successModal">Buy</button> : <button onClick={() => attemptToBuy(false)} className="btn btn-danger" data-toggle="modal" data-target="#failureModal">You lack {cost-userPoints} points</button>}
             </div>
+        </div>
+
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Redeemed Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                You successfully redeemed the product
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal fade" id="failureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Redeemed Failure</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                You can not redeem that product. Not enough points.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   );
