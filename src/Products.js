@@ -2,10 +2,10 @@ import React from "react";
 import Product from "./Product"
 
 function Products(props) {
-    const {products, userPoints, sortBy, setIsUserUpdated, priceFilter, categoryFilter, categoryList } = props;
+    const {products, userPoints, sortBy, setIsUserUpdated, priceFilter, categoryFilter, categoryList, pageNumber } = props;
     let sortedProducts = [...products];
     
-    if (priceFilter !== 0 && priceFilter !== "0"){
+    if (priceFilter !== "0"){
       switch (priceFilter){
         case '1':
             sortedProducts = sortedProducts.filter(product => (product.cost > 0 && product.cost <= 150))
@@ -32,6 +32,14 @@ function Products(props) {
     }
     if (sortBy===2){
       sortedProducts.sort((a, b) => (a.cost < b.cost) ? 1 : -1)
+    }
+
+    if (sortedProducts.length > 16){
+      if (pageNumber==="1"){
+        sortedProducts = sortedProducts.slice(0, 16)
+      } else {
+        sortedProducts = sortedProducts.slice(16, sortedProducts.length)
+      }
     }
 
     

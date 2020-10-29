@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
 import Header from "./Header"
-import Sorters from "./Sorters"
-import Products from "./Products"
 import Footer from "./Footer"
 import History from "./History"
-import Filters from "./Filters"
+import ProductsDisplay from "./ProductsDisplay"
+
+
 
 function App() {
   const [apiResponse, setApiResponse] = useState([]);
@@ -15,7 +16,7 @@ function App() {
   const [priceFilter, setPriceFilter] = useState('0');
   const [categoryFilter, setCategoryFilter] = useState('0');
   const [categoryList, setCategoryList] = useState([]);
-  
+
   useEffect(() => {
     setIsLoading(true);
       fetch(
@@ -71,15 +72,27 @@ function App() {
 
   return (
     <div className="App">
-    {console.log("price", priceFilter, "category", categoryFilter, "catlist", categoryList)}
       <Header name={userResponse.name} points={userResponse.points} setIsUserUpdated={setIsUserUpdated}/>
-      <Sorters sortBy={sortBy} setSortBy={setSortBy} />
-      <Filters products={apiResponse} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} categoryList={categoryList}/>
-      {/*{isLoading? <h1>Loading...</h1> : <History history={userResponse.redeemHistory}/>}*/}
-      <Products products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
+      <Switch>
+        <Route exact path="/" render={() => 
+          (
+            <ProductsDisplay pageNumber={'1'} setSortBy={setSortBy} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
+          )}
+        />
+        <Route exact path="/:pageNumber" render={({match}) => 
+          (
+            <ProductsDisplay pageNumber={match.params.pageNumber} setSortBy={setSortBy} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
+          )}
+        />
+        <Route path="/history" render={() =>
+        (
+        <History history={userResponse.redeemHistory}/>
+        )}
+        />
+      </Switch>
       <Footer/>
     </div>
   );
-}
+  }
 
 export default App;

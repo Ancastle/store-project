@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Header(props) {
   const {name, points, setIsUserUpdated} = props;
@@ -27,22 +28,28 @@ function Header(props) {
     <header>
         <div className="navbar navbar-light bg-light box-shadow">
             <div className="container d-flex justify-content-between">
-            <a href="/" className="navbar-brand d-flex align-items-center">
-            <i className="fas fa-shopping-cart"></i>
-                <strong></strong>
-            </a>
-            <div className="dropdown d-flex">
-              <h3 className="nav-item my-auto user-info">{name} <i className="fas fa-coins"></i> {points} </h3>
-              <button className="btn btn-secondary plus-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="fas fa-plus-circle"></i>
-              </button>
-              <button className="btn btn-secondary"><i className="fas fa-clipboard"></i></button>
-              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button className="dropdown-item" onClick={() => addPoints(1000)}>Add <i className="fas fa-coins"></i> 1000 points</button>
-                <button className="dropdown-item" onClick={() => addPoints(5000)}>Add <i className="fas fa-coins"></i> 5000 points</button>
-                <button className="dropdown-item" onClick={() => addPoints(7500)}>Add <i className="fas fa-coins"></i> 7500 points</button>
+              <Link to="/">
+                <a href="/" className="navbar-brand d-flex align-items-center">
+                <i className="fas fa-shopping-cart"></i>
+                    <strong></strong>
+                </a>
+              </Link>
+              <div className="dropdown d-flex">
+                
+                <h3 className="nav-item my-auto user-info">{name} <i className="fas fa-coins"></i> {points} </h3>
+                
+                  <button className="btn btn-secondary plus-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i className="fas fa-plus-circle"></i>
+                  </button>
+                  <Link to="/history">
+                    <button className="btn btn-secondary"><i className="fas fa-clipboard"></i></button>
+                  </Link>
+                  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button className="dropdown-item" onClick={() => addPoints(1000)}>Add <i className="fas fa-coins"></i> 1000 points</button>
+                    <button className="dropdown-item" onClick={() => addPoints(5000)}>Add <i className="fas fa-coins"></i> 5000 points</button>
+                    <button className="dropdown-item" onClick={() => addPoints(7500)}>Add <i className="fas fa-coins"></i> 7500 points</button>
+                  </div>
               </div>
-            </div>
             </div>
         </div>
     </header>

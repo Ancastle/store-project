@@ -22,3 +22,6 @@
 .filterp {
     margin-left: 10px;
 }
+.pagination {
+    justify-content: flex-end;
+}
