@@ -2,7 +2,7 @@ import React from "react";
 import Product from "./Product"
 
 function Products(props) {
-    const {products, userPoints, sortBy} = props;
+    const {products, userPoints, sortBy, setIsUserUpdated} = props;
     let sortedProducts = [...products];
     if (sortBy===1){
       sortedProducts.sort((a, b) => (a.cost > b.cost) ? 1 : -1)
@@ -15,7 +15,7 @@ function Products(props) {
     <div className="container">
         <div className="row">
         {sortedProducts.map((each, i) => {
-          return <Product key={i} category={each.category} name={each.name} imgURL={each.img.url} cost={each.cost} userPoints={userPoints} />
+          return <Product key={i} category={each.category} name={each.name} imgURL={each.img.url} cost={each.cost} userPoints={userPoints} productId={each._id} setIsUserUpdated={setIsUserUpdated} />
         })}
         </div>
     </div>

@@ -1,9 +1,10 @@
 import React from "react";
 
 function Header(props) {
-  const {name, points} = props;
+  const {name, points, setIsUserUpdated} = props;
 
   const addPoints =  (desiredAmount) => {
+
     var request = require('request');
     request({
       method: 'POST',
@@ -19,6 +20,7 @@ function Header(props) {
       console.log('Headers:', JSON.stringify(response.headers));
       console.log('Response:', body);
     });
+    setIsUserUpdated(false);
   }
 
   return (
@@ -31,9 +33,10 @@ function Header(props) {
             </a>
             <div className="dropdown d-flex">
               <h3 className="nav-item my-auto user-info">{name} <i className="fas fa-coins"></i> {points} </h3>
-              <button className="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="fas fa-plus-circle" onClick={addPoints}></i>
+              <button className="btn btn-secondary plus-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i className="fas fa-plus-circle"></i>
               </button>
+              <button className="btn btn-secondary"><i className="fas fa-clipboard"></i></button>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <button className="dropdown-item" onClick={() => addPoints(1000)}>Add <i className="fas fa-coins"></i> 1000 points</button>
                 <button className="dropdown-item" onClick={() => addPoints(5000)}>Add <i className="fas fa-coins"></i> 5000 points</button>
