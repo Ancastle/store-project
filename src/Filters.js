@@ -1,21 +1,34 @@
 import React from "react";
 
 function Filters(props) {
-    const {sortBy, setSortBy } = props;
+    const {setPriceFilter, setCategoryFilter, categoryList} = props;
+
+    const handleChangePrice = (e) => {
+        setPriceFilter(e.target.value);
+        }
+    const handleChangeCategory = (e) => {
+        setCategoryFilter(e.target.value);
+        }
+
   return (
     <div className="container filter">
         <div className="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-            <p className="text-primary my-auto p-custom">X of X products </p>
-            <p className="text-secondary my-auto p-custom"> | Sort by: </p>
-            <div className="btn-group mr-2" role="group" aria-label="First group">
-                <button onClick={() => setSortBy(0)} type="button"  className={sortBy===0 ? "btn btn-primary" : "btn btn-secondary"}>Most Recent</button>
-            </div>
-            <div className="btn-group mr-2" role="group" aria-label="Second group">
-                <button onClick={() => setSortBy(1)} type="button" className={sortBy===1 ? "btn btn-primary" : "btn btn-secondary"}>Lowest Price</button>
-            </div>
-            <div className="btn-group" role="group" aria-label="Third group">
-                <button onClick={() => setSortBy(2)} type="button" className={sortBy===2 ? "btn btn-primary" : "btn btn-secondary"}>Highest Price</button>
-            </div>
+            <p className="text-primary my-auto p-custom filterp">Filter by Price: </p>
+            <select onChange={handleChangePrice} className="browser-default" name="price">
+                <option value="0">All prices</option>
+                <option value="1">Prices from 0 to 150</option>
+                <option value="2">Prices from 151 to 230</option>
+                <option value="3">Prices from 230 to 600</option>
+                <option value="4">Prices higher than 600</option>
+            </select>
+            <p className="text-primary my-auto p-custom filterp">Filter by Category: </p>
+            <select onChange={handleChangeCategory} className="browser-default" name="category">
+                <option value="0">All categories</option>
+                {categoryList.map((each, i) =>
+                <option key={i} value={i+1}>{each}</option>
+                )}
+            </select>
+
         </div>
     </div>
   );

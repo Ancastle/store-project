@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header"
-import Filters from "./Filters"
+import Sorters from "./Sorters"
 import Products from "./Products"
 import Footer from "./Footer"
 import History from "./History"
+import Filters from "./Filters"
 
 function App() {
   const [apiResponse, setApiResponse] = useState([]);
@@ -11,6 +12,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState(0);
   const [isUserUpdated, setIsUserUpdated] = useState(false);
+  const [priceFilter, setPriceFilter] = useState('0');
+  const [categoryFilter, setCategoryFilter] = useState('0');
+  const [categoryList, setCategoryList] = useState([]);
   
   useEffect(() => {
     setIsLoading(true);
@@ -32,6 +36,16 @@ function App() {
         })
         .catch(error => console.log(error));
     }, []);
+    
+    useEffect(()=> {
+      var categories = [];
+      apiResponse.forEach(element => {
+          if (!categories.includes(element.category)) {
+              categories.push(element.category);
+          }
+      });
+      setCategoryList(categories);
+    }, [apiResponse])
 
     useEffect(() => { 
       setIsLoading(true);
@@ -57,10 +71,12 @@ function App() {
 
   return (
     <div className="App">
+    {console.log("price", priceFilter, "category", categoryFilter, "catlist", categoryList)}
       <Header name={userResponse.name} points={userResponse.points} setIsUserUpdated={setIsUserUpdated}/>
-      <Filters sortBy={sortBy} setSortBy={setSortBy} />
-      {isLoading? <h1>Loading...</h1> : <History history={userResponse.redeemHistory}/>}      
-      <Products products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated}/>
+      <Sorters sortBy={sortBy} setSortBy={setSortBy} />
+      <Filters products={apiResponse} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} categoryList={categoryList}/>
+      {/*{isLoading? <h1>Loading...</h1> : <History history={userResponse.redeemHistory}/>}*/}
+      <Products products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
       <Footer/>
     </div>
   );
