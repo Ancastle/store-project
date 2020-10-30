@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { AppContext } from "./contexts/AppContext";
 
 function Pagination(props) {
-    const {pageNumber, priceFilter, categoryFilter} = props;
+    const {priceFilter, categoryFilter} =  React.useContext(AppContext);
+    const {pageNumber} = props;
     return (
         <div className="container pagination">
             <nav aria-label="Page navigation example">
@@ -10,19 +12,19 @@ function Pagination(props) {
             pageNumber === '1' ?
             <ul className="pagination">
                 <Link to="/page/1">
-                    <li className="page-item disabled"><a className="page-link" href="#"><i className="fas fa-arrow-left"></i></a></li>
+                    <li className="page-item disabled"><p className="page-link"><i className="fas fa-arrow-left"></i></p></li>
                 </Link>
                 <Link to="/page/2">
-                    <li className="page-item"><a className="page-link" href="#"><i class="fas fa-arrow-right"></i></a></li>
+                    <li className="page-item"><p className="page-link" ><i className="fas fa-arrow-right"></i></p></li>
                 </Link>
             </ul>
         : 
             <ul className="pagination">
                 <Link to="/page/1">
-                    <li className="page-item"><a className="page-link" href="#"><i className="fas fa-arrow-left"></i></a></li>
+                    <li className="page-item"><p className="page-link" ><i className="fas fa-arrow-left"></i></p></li>
                 </Link>
                 <Link to="/page/2">
-                    <li className="page-item disabled"><a className="page-link" href="#"><i class="fas fa-arrow-right"></i></a></li>
+                    <li className="page-item disabled"><p className="page-link" ><i className="fas fa-arrow-right"></i></p></li>
                 </Link>
             </ul> : ""
                 

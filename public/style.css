@@ -25,3 +25,7 @@
 .pagination {
     justify-content: flex-end;
 }
+
+.fa-shopping-cart {
+    color: black;
+}

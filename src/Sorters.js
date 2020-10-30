@@ -1,7 +1,8 @@
 import React from "react";
+import { AppContext } from "./contexts/AppContext";
 
 function Sorters(props) {
-    const {sortBy, setSortBy } = props;
+    const {sortBy, setSortBy } =  React.useContext(AppContext);
   return (
     <div className="container filter">
         <div className="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">

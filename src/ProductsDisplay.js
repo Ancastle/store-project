@@ -5,15 +5,13 @@ import Products from "./Products"
 import Pagination from "./Pagination"
 
 function ProductsDisplay(props) {
-    const {sortBy, setSortBy, setPriceFilter, setCategoryFilter, categoryList, products, userPoints, setIsUserUpdated, priceFilter, categoryFilter, pageNumber} = props;
+    const {pageNumber} = props;
     return (
         <div>
-            {console.log(pageNumber)}
-            <Sorters sortBy={sortBy} setSortBy={setSortBy} />
-            <Filters products={products} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} categoryList={categoryList}/>
-            <Pagination pageNumber={pageNumber} priceFilter={priceFilter} categoryFilter={categoryFilter}/>
-            <Products pageNumber={pageNumber} products={products} userPoints={userPoints} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
-            
+            <Sorters />
+            <Filters />
+            <Pagination pageNumber={pageNumber}/>
+            <Products pageNumber={pageNumber}/>
         </div>
     );
 }

@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "./contexts/AppContext";
 
 function Header(props) {
-  const {name, points, setIsUserUpdated} = props;
-
+  const {userResponse, setIsUserUpdated} = React.useContext(AppContext);
+  const name = userResponse.name;
+  const points = userResponse.points;
+  
   const addPoints =  (desiredAmount) => {
 
     var request = require('request');
@@ -29,10 +32,7 @@ function Header(props) {
         <div className="navbar navbar-light bg-light box-shadow">
             <div className="container d-flex justify-content-between">
               <Link to="/">
-                <a href="/" className="navbar-brand d-flex align-items-center">
-                <i className="fas fa-shopping-cart"></i>
-                    <strong></strong>
-                </a>
+                  <i className="fas fa-shopping-cart"></i>
               </Link>
               <div className="dropdown d-flex">
                 

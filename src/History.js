@@ -1,7 +1,9 @@
 import React from "react";
+import { AppContext } from "./contexts/AppContext";
 
 function History(props) {
-    const {history} = props;
+    const {userResponse } =  React.useContext(AppContext);
+    const history = userResponse.redeemHistory;
     var historyConditional = false;
     try {
     historyConditional = Boolean(history.length >= 1)

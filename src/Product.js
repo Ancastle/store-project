@@ -1,7 +1,10 @@
 import React from "react";
+import { AppContext } from "./contexts/AppContext";
 
 function Product(props) {
-  const {category, name, imgURL, cost, userPoints, productId, setIsUserUpdated} = props;
+  const {userResponse, setIsUserUpdated} = React.useContext(AppContext);
+  const {category, name, imgURL, cost, productId} = props;
+  const userPoints = userResponse.points;
   
   const attemptToBuy = (x, productId) => {
     if (x===true) {

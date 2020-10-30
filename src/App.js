@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./Header"
 import Footer from "./Footer"
 import History from "./History"
 import ProductsDisplay from "./ProductsDisplay"
+import { AppContext } from "./contexts/AppContext";
 
 
 
 function App() {
-  const [apiResponse, setApiResponse] = useState([]);
-  const [userResponse, setUserResponse] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [sortBy, setSortBy] = useState(0);
-  const [isUserUpdated, setIsUserUpdated] = useState(false);
-  const [priceFilter, setPriceFilter] = useState('0');
-  const [categoryFilter, setCategoryFilter] = useState('0');
-  const [categoryList, setCategoryList] = useState([]);
+  const {productsResponse, setProductsResponse, setUserResponse, setIsLoading, isUserUpdated, setIsUserUpdated, setCategoryList} = React.useContext(AppContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,7 +26,7 @@ function App() {
       )
         .then(res => res.json())
         .then(response => {
-          setApiResponse(response);
+          setProductsResponse(response);
           setIsLoading(false);
         })
         .catch(error => console.log(error));
@@ -40,13 +34,13 @@ function App() {
     
     useEffect(()=> {
       var categories = [];
-      apiResponse.forEach(element => {
+      productsResponse.forEach(element => {
           if (!categories.includes(element.category)) {
               categories.push(element.category);
           }
       });
       setCategoryList(categories);
-    }, [apiResponse])
+    }, [productsResponse])
 
     useEffect(() => { 
       setIsLoading(true);
@@ -72,25 +66,25 @@ function App() {
 
   return (
     <div className="App">
-      <Header name={userResponse.name} points={userResponse.points} setIsUserUpdated={setIsUserUpdated}/>
-      <Switch>
+      <Header/>
+        <Switch>
         <Route exact path="/" render={() => 
           (
-            <ProductsDisplay pageNumber={'1'} setSortBy={setSortBy} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
+            <ProductsDisplay pageNumber={'1'}/>
           )}
         />
         <Route path="/page/:pageNumber" render={({match}) => 
           (
-            <ProductsDisplay pageNumber={match.params.pageNumber} setSortBy={setSortBy} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
-          )}
+            <ProductsDisplay pageNumber={match.params.pageNumber}/>
+  )}
         />
         <Route exact path="/history" render={() =>
         (
-        <History history={userResponse.redeemHistory}/>
+        <History />
         )}
         />
-      </Switch>
-      <Footer/>
+      </Switch>   
+      <Footer/>   
     </div>
   );
   }

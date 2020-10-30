@@ -1,7 +1,8 @@
 import React from "react";
+import { AppContext } from "./contexts/AppContext";
 
 function Filters(props) {
-    const {setPriceFilter, setCategoryFilter, categoryList} = props;
+    const {setPriceFilter, setCategoryFilter, categoryList} =  React.useContext(AppContext);
 
     const handleChangePrice = (e) => {
         setPriceFilter(e.target.value);
