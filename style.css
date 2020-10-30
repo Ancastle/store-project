@@ -1,0 +1,31 @@
+.filter {
+    margin: 15px;
+}
+.p-custom {
+    margin-right: 5px;
+}
+.card-container {
+    margin-bottom: 10px;
+}
+.fa-coins {
+    color: gold;
+}
+.user-info {
+    margin-right: 10px;
+}
+.btn-filter {
+    border-radius: 50%;
+}
+.plus-btn {
+    margin-right: 5px ;
+}
+.filterp {
+    margin-left: 10px;
+}
+.pagination {
+    justify-content: flex-end;
+}
+
+.fa-shopping-cart {
+    color: black;
+}
