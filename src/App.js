@@ -79,12 +79,12 @@ function App() {
             <ProductsDisplay pageNumber={'1'} setSortBy={setSortBy} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
           )}
         />
-        <Route exact path="/:pageNumber" render={({match}) => 
+        <Route path="/page/:pageNumber" render={({match}) => 
           (
             <ProductsDisplay pageNumber={match.params.pageNumber} setSortBy={setSortBy} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} products={apiResponse} userPoints={userResponse.points} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
           )}
         />
-        <Route path="/history" render={() =>
+        <Route exact path="/history" render={() =>
         (
         <History history={userResponse.redeemHistory}/>
         )}

@@ -11,7 +11,7 @@ function ProductsDisplay(props) {
             {console.log(pageNumber)}
             <Sorters sortBy={sortBy} setSortBy={setSortBy} />
             <Filters products={products} setPriceFilter={setPriceFilter} setCategoryFilter={setCategoryFilter} categoryList={categoryList}/>
-            <Pagination pageNumber={pageNumber}/>
+            <Pagination pageNumber={pageNumber} priceFilter={priceFilter} categoryFilter={categoryFilter}/>
             <Products pageNumber={pageNumber} products={products} userPoints={userPoints} sortBy={sortBy} setIsUserUpdated={setIsUserUpdated} priceFilter={priceFilter} categoryFilter={categoryFilter} categoryList={categoryList}/>
             
         </div>
