@@ -73,6 +73,11 @@ function App() {
             <ProductsDisplay pageNumber={'1'}/>
           )}
         />
+        <Route exact path="/store-project" render={() => 
+          (
+            <ProductsDisplay pageNumber={'1'}/>
+          )}
+        />
         <Route path="/page/:pageNumber" render={({match}) => 
           (
             <ProductsDisplay pageNumber={match.params.pageNumber}/>
